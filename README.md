@@ -6,10 +6,11 @@ An experiment in making a MUD (multi-user dungeon) game in Rust.
 - [ ] Networking figured out
 
 ## Using
-- [enet-rs][enet-rs]
-- [signal][signal]
-- ~[clap][clap]~
+- [tcod](https://github.com/tomassedovic/tcod-rs)
+- [enet-rs](https://github.com/futile/enet-rs)
+- [~signal~](https://github.com/tailhook/signal)
+- [clap](https://github.com/clap-rs/clap)
 
-[enet-rs]: https://github.com/futile/enet-rs
-[signal]: https://github.com/tailhook/signal
-[clap]: https://github.com/clap-rs/clap
+
+### For testing
+- [lipsum](https://github.com/mgeisler/lipsum/)
