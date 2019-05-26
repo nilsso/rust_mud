@@ -1,0 +1,12 @@
+[package]
+name = "scp_rust_rogue"
+version = "0.1.0"
+authors = ["Nils Olsson <nilso@enosis.net>"]
+edition = "2018"
+
+[dependencies]
+tcod = "0.14"
+rand = "0.6.5"
+enet = "0.2.2"
+clap = { version = "2.33.0", features = ["yaml"] }
+lipsum = "0.6"

@@ -1,0 +1,12 @@
+name: SCP Rust
+settings:
+    - SubcommandRequiredElseHelp
+subcommands:
+    - server:
+        args:
+            - max_players:
+                short: m
+                long: max_players
+                help: Maximum player slots for server
+                default_value: "8"
+    - client:
