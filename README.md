@@ -2,7 +2,7 @@ MUD
 ====
 An experiment in making a MUD (multi-user dungeon) game in Rust.
 
-## Tasts
+## Tasks
 - [ ] Networking figured out
 
 ## Using
