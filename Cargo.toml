@@ -7,6 +7,11 @@ edition = "2018"
 [dependencies]
 tcod = "0.14"
 rand = "0.6.5"
-enet = "0.2.2"
+#enet = "0.2.2"
+laminar = "0.2.2"
 clap = { version = "2.33.0", features = ["yaml"] }
 lipsum = "0.6"
+
+[[bin]]
+name = "scp_rust_rogue"
+path = "src/main.rs"
