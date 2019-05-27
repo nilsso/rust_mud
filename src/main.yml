@@ -4,6 +4,11 @@ settings:
 subcommands:
     - server:
         args:
+            - headless:
+                short: h
+                long: headless
+                help: Run server without prompt
+                default_value: "false"
             - max_players:
                 short: m
                 long: max_players

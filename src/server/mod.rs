@@ -1,20 +1,23 @@
 //! Server module
 
 // External code
-use std::thread;
+use bincode::deserialize;
 use crossbeam_channel::{Receiver, Sender};
 use laminar::{ErrorKind, Packet, Socket, SocketEvent};
 use std::net::{Ipv4Addr, SocketAddr};
-use bincode::deserialize;
+use std::thread;
+use std::time::Duration;
 
 // Internal code
 use crate::DataType;
+mod server_repl;
 
 pub struct ServerParams {
     max_players: u8,
 }
 
 pub struct Server {
+    address: SocketAddr,
     packet_sender: Sender<Packet>,
     event_receiver: Receiver<SocketEvent>,
     polling_thread: thread::JoinHandle<Result<(), ErrorKind>>,
@@ -25,13 +28,24 @@ impl Server {
         let (mut socket, packet_sender, event_receiver) = Socket::bind(address).unwrap();
         let polling_thread = thread::spawn(move || socket.start_polling());
         Server {
+            address,
             packet_sender,
             event_receiver,
             polling_thread,
         }
     }
 
+    pub fn start(&mut self, headless: bool) -> bool {
+        if !headless {
+            if let Err(e) = server_repl::server_repl() {
+                eprintln!("Server quit unexpectedly! Error: {}", e);
+            }
+        }
+        false
+    }
+
     pub fn receive(&mut self) {
+        println!("Receive...");
         let result = self.event_receiver.recv();
         match result {
             Ok(SocketEvent::Packet(packet)) => {
@@ -52,8 +66,8 @@ impl Server {
         }
     }
 
-    pub fn perform_action(&mut self, data_type: DataType) {
-        match data_type {
+    pub fn perform_action(&mut self, data: DataType) {
+        match data {
             DataType::Coords { x, y, z } => {
                 println!("Received coordinate: x={} y={} z={}", x, y, z);
             }
