@@ -35,8 +35,8 @@ fn main() {
         let max_players = value_t!(matches, "max_players", u8).unwrap();
         let mut server = Server::new(server_address);
         server.start(headless);
-        // Client sub-command
     } else if let Some(matches) = matches.subcommand_matches("client") {
+        // Client sub-command
         let client_address = CLIENT_ADDRESS.parse().unwrap();
         let mut client = Client::new(server_address, client_address);
         client.start();

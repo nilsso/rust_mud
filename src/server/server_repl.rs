@@ -1,4 +1,4 @@
-//! Server REPL (Read-eval-print loop)
+//! Server module REPL (Read-eval-print loop)
 
 use rustyline::error::ReadlineError;
 use rustyline::Editor;
@@ -15,9 +15,11 @@ pub fn server_repl() -> Result<(), ReadlineError> {
     rl.load_history("history.txt").ok();
     loop {
         let line = rl.readline("> ")?;
+        // TODO: Can I accomplish this in one line?
         let args = line.replace(|c| c == '\n' || c == '\r', "");
-        let args: Vec<&str> = args.split_whitespace().collect(); // Can't figure out how to accomplish this in one line.
-                                                                 // Parse commands
+        let args: Vec<&str> = args.split_whitespace().collect();
+
+        // Parse commands
         if !args.is_empty() {
             match args[0] {
                 "quit" => break,
@@ -28,6 +30,7 @@ pub fn server_repl() -> Result<(), ReadlineError> {
                 _ => {}
             }
         }
+
         // Parse scripts
         match args.as_slice() {
             _ => {
