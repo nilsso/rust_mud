@@ -33,25 +33,36 @@ impl Client {
         }
     }
 
+    pub fn server_address(&self) -> SocketAddr {
+        self.server_address
+    }
+
+    pub fn client_address(&self) -> SocketAddr {
+        self.client_address
+    }
+
     pub fn start(&mut self) -> bool {
-//        let stdin = stdin();
-//        let mut buffer = String::new();
-//        loop {
-//            buffer.clear();
-//            stdin.read_line(&mut buffer);
-//            let line = buffer.replace(|x| x == '\n' || x == '\r', "");
-//            if line == "q" {
-//                break;
-//            }
-//            client.send(DataType::Text {
-//                string: String::from("Hello world!"),
-//            });
-//        }
+        //        let stdin = stdin();
+        //        let mut buffer = String::new();
+        //        loop {
+        //            buffer.clear();
+        //            stdin.read_line(&mut buffer);
+        //            let line = buffer.replace(|x| x == '\n' || x == '\r', "");
+        //            if line == "q" {
+        //                break;
+        //            }
+        //            client.send(DataType::Text {
+        //                string: String::from("Hello world!"),
+        //            });
+        //        }
         false
     }
 
     pub fn send(&mut self, data: DataType) {
-        println!("Attempting to send {:?} to server {}", data, self.server_address);
+        println!(
+            "Attempting to send {:?} to server {}",
+            data, self.server_address
+        );
         let serialized = serialize(&data);
         match serialized {
             Ok(raw) => {

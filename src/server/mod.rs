@@ -35,6 +35,10 @@ impl Server {
         }
     }
 
+    pub fn address(&self) -> SocketAddr {
+        self.address
+    }
+
     pub fn start(&mut self, headless: bool) -> bool {
         if !headless {
             if let Err(e) = server_repl::server_repl() {
