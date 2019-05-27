@@ -5,15 +5,16 @@ authors = ["Nils Olsson <nilso@enosis.net>"]
 edition = "2018"
 
 [dependencies]
-laminar = "0.2.2"
-serde = "1.0.91"
-serde_derive = "1.0.91"
-bincode = "1.1.4"
-crossbeam-channel = "0.3.8"
-rand = "0.6.5"
+laminar = "0.2"
+serde = "1.0"
+serde_derive = "1.0"
+bincode = "1.1"
+crossbeam-channel = "0.3"
+rand = "0.6"
 tcod = "0.14"
-clap = { version = "2.33.0", features = ["yaml"] }
-rustyline = "4.1.0"
+clap = { version = "2.33", features = ["yaml"] }
+rustyline = "4.1"
+log = "0.4"
 
 lipsum = "0.6"
 

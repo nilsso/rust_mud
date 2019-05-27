@@ -53,19 +53,19 @@ impl Server {
         let result = self.event_receiver.recv();
         match result {
             Ok(SocketEvent::Packet(packet)) => {
-                println!("{} packet!", packet.addr());
+                trace!("{} packet!", packet.addr());
                 let raw: &[u8] = packet.payload();
                 let deserialized: DataType = deserialize(&raw).unwrap();
                 self.perform_action(deserialized);
             }
             Ok(SocketEvent::Timeout(address)) => {
-                println!("{} timeout!", address);
+                debug!("{} timeout!", address);
             }
             Ok(SocketEvent::Connect(address)) => {
-                println!("{} connected!", address);
+                debug!("{} connected!", address);
             }
             Err(e) => {
-                println!("Error in receiving: {:?}", e);
+                error!("Error in receiving: {:?}", e);
             }
         }
     }

@@ -6,6 +6,8 @@ mod server;
 #[macro_use]
 extern crate clap;
 use clap::ArgMatches;
+#[macro_use]
+extern crate log;
 use serde_derive::{Deserialize, Serialize};
 use std::{thread, time};
 
