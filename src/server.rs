@@ -1,25 +1,65 @@
-//! Game server module
+//! Server module
 
-use std::net::Ipv4Addr;
-use laminar::{Socket, Packet};
+// External code
+use std::thread;
+use crossbeam_channel::{Receiver, Sender};
+use laminar::{ErrorKind, Packet, Socket, SocketEvent};
+use std::net::{Ipv4Addr, SocketAddr};
+use bincode::deserialize;
 
-const TIMEOUT: u32 = 1_000;
+// Internal code
+use crate::DataType;
 
 pub struct ServerParams {
-    pub max_players: u32,
-    pub ip: Ipv4Addr,
-    pub port: u16,
+    max_players: u8,
 }
 
-impl Default for ServerParams {
-    fn default() -> Self {
-        ServerParams {
-            max_players: 8,
-            ip: Ipv4Addr::LOCALHOST,
-            port: 9001,
+pub struct Server {
+    packet_sender: Sender<Packet>,
+    event_receiver: Receiver<SocketEvent>,
+    polling_thread: thread::JoinHandle<Result<(), ErrorKind>>,
+}
+
+impl Server {
+    pub fn new(address: SocketAddr) -> Self {
+        let (mut socket, packet_sender, event_receiver) = Socket::bind(address).unwrap();
+        let polling_thread = thread::spawn(move || socket.start_polling());
+        Server {
+            packet_sender,
+            event_receiver,
+            polling_thread,
         }
     }
-}
 
-pub fn start_server(params: ServerParams) {
+    pub fn receive(&mut self) {
+        let result = self.event_receiver.recv();
+        match result {
+            Ok(SocketEvent::Packet(packet)) => {
+                println!("{} packet!", packet.addr());
+                let raw: &[u8] = packet.payload();
+                let deserialized: DataType = deserialize(&raw).unwrap();
+                self.perform_action(deserialized);
+            }
+            Ok(SocketEvent::Timeout(address)) => {
+                println!("{} timeout!", address);
+            }
+            Ok(SocketEvent::Connect(address)) => {
+                println!("{} connected!", address);
+            }
+            Err(e) => {
+                println!("Error in receiving: {:?}", e);
+            }
+        }
+    }
+
+    pub fn perform_action(&mut self, data_type: DataType) {
+        match data_type {
+            DataType::Coords { x, y, z } => {
+                println!("Received coordinate: x={} y={} z={}", x, y, z);
+            }
+            DataType::Text { string } => {
+                println!("Received text: '{}'", string);
+            }
+        }
+    }
 }
