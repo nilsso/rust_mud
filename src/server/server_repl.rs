@@ -15,10 +15,8 @@ pub fn server_repl() -> Result<(), ReadlineError> {
     rl.load_history("history.txt").ok();
     loop {
         let line = rl.readline("> ")?;
-        // TODO: Can I accomplish this in one line?
-//        let args = line.replace(|c| c == '\n' || c == '\r', "");
-//        let args: Vec<&str> = args.split_whitespace().collect();
-        let args: Vec<String> = line.replace(|c| c == '\n' || c == '\r', "").split_whitespace().map(|s| s.to_string()).collect();
+        let args = line.replace(|c| c == '\n' || c == '\r', "");
+        let args: Vec<&str> = args.split_whitespace().collect();
         if !args.is_empty() {
             match args[0].as_str() {
                 "quit" => break,
