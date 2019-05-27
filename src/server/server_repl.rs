@@ -18,7 +18,7 @@ pub fn server_repl() -> Result<(), ReadlineError> {
         let args = line.replace(|c| c == '\n' || c == '\r', "");
         let args: Vec<&str> = args.split_whitespace().collect();
         if !args.is_empty() {
-            match args[0].as_str() {
+            match args[0] {
                 "quit" => break,
                 "help" => println!("{}", HELP),
                 "log_max_level" => {
