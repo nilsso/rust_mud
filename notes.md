@@ -8,6 +8,7 @@
 - [laminar](https://github.com/amethyst/laminar)
 - [rayon](https://github.com/rayon-rs/rayon)
 - [log](https://github.com/rust-lang-nursery/log)
+- [simple_logger](https://github.com/borntyping/rust-simple_logger)
 - [crossbeam-channel](https://github.com/crossbeam-rs/crossbeam)
 - [clap](https://github.com/clap-rs/clap)
 - [rustyline](https://github.com/kkawakam/rustyline)

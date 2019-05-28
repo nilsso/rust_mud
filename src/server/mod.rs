@@ -1,6 +1,8 @@
 //! Server module
 
 // External code
+use log::Level;
+use simple_logger;
 use bincode::deserialize;
 use crossbeam_channel::{Receiver, Sender};
 use laminar::{ErrorKind, Packet, Socket, SocketEvent};
@@ -40,6 +42,13 @@ impl Server {
     }
 
     pub fn start(&mut self, headless: bool) -> bool {
+        let logger = simple_logger::init_with_level(Level::Warn).unwrap();
+        //thread::spawn(|| {
+            //loop {
+                //info!("test!");
+                //thread::sleep(Duration::from_secs(1));
+            //}
+        //});
         if !headless {
             if let Err(e) = server_repl::server_repl() {
                 eprintln!("Server quit unexpectedly! Error: {}", e);
