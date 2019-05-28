@@ -42,7 +42,7 @@ impl Server {
     }
 
     pub fn start(&mut self, headless: bool) -> bool {
-        let logger = simple_logger::init_with_level(Level::Warn).unwrap();
+        //let logger = simple_logger::init_with_level(Level::Debug).unwrap();
         //thread::spawn(|| {
             //loop {
                 //info!("test!");
