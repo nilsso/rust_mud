@@ -1,17 +1,31 @@
 name: SCP Rust
 settings:
-    - SubcommandRequiredElseHelp
+  - SubcommandRequiredElseHelp
 subcommands:
-    - server:
-        args:
-            - headless:
-                short: h
-                long: headless
-                help: Run server without prompt
-                default_value: "false"
-            - max_players:
-                short: m
-                long: max_players
-                help: Maximum player slots for server
-                default_value: "8"
-    - client:
+  - server:
+      args:
+        - ip:
+            help: Server address IP
+            default_value: "127.0.0.1"
+        - port:
+            help: Server address port
+            default_value: "9001"
+        - max_players:
+            short: m
+            long: max_players
+            help: Maximum player slots for server
+            default_value: "8"
+  - client:
+      args:
+        - ip:
+            help: Client address IP
+            default_value: "127.0.0.1"
+        - port:
+            help: Client address port
+            default_value: "9002"
+        - server_ip:
+            help: Server address IP
+            default_value: "127.0.0.1"
+        - server_port:
+            help: Server address port
+            default_value: "9001"

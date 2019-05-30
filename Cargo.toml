@@ -16,6 +16,7 @@ clap = { version = "2.33", features = ["yaml"] }
 rustyline = "4.1"
 log = "0.4"
 simple_logger = "1.2"
+getset = "0.0"
 
 lipsum = "0.6"
 
